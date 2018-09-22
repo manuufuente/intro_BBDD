@@ -1,0 +1,90 @@
+/*use comercioIT;
+
+create table productos(
+idproducto int not null auto_increment,
+nombre varchar (30) not null,
+precio double not null,
+marca varchar(20) not null,
+categoria varchar(30) not null,
+presentacion varchar(30) not null,
+stock int (6) not null, 
+primary key(idproducto)
+)
+
+insert into productos(nombre,precio,marca,categoria,presentacion,stock)values
+('',100,'','',1,500);
+
+create table categorias(
+idcategoria int (11)not null auto_increment,
+nombre varchar(30) not null,
+hijode int (11) not null , 
+primary key (idcategoria)
+);
+
+create table marcas(
+idmarcas int (11) not null auto_increment,
+nombre varchar(30)not null,
+primary key (idmarcas)
+);
+
+alter table productos modify marca int (11) not null;
+alter table productos modify categoria int (11) not null;
+
+
+insert into categorias (nombre,hijode)values('hombres',0),('mujeres',0),('niño',0),('niña',0);
+insert into marcas (nombre)values('sony'),('lg'),('motorola'); 
+
+select * from marcas,productos;
+
+alter table productos add key (marca);
+alter table productos add foreign key (marca) references marcas (idmarcas) on delete cascade on update cascade;
+
+insert into productos (nombre, precio ,marca, categoria ,presentacion,stock) 
+values 
+('sj3',5000,1,2,'und',10),
+('sj5',6000,1,2,'und',8),
+('g3',5000,2,1,'und',5);
+
+select nombre from productos where precio=5000 or precio=6000;
+select nombre from productos where precio in(5000,6000)
+
+select nombre,presentacion from productos where precio>=5000 and precio<=5500
+select nombre,presentacion from productos where precio between 5000 and 5500
+select nombre,presentacion from productos where nombre >'sj3'
+
+select 'SQL'as curso,nombre,(precio*2) from productos
+
+select * from categorias 
+
+select nombre,precio,categoria from productos where categoria = 2;
+ 
+select nombre,precio,categoria from productos where categoria in (select idcategoria from categorias where nombre='mujeres') ;
+
+select nombre,precio,(select nombre from categorias where nombre='mujeres') as categoria from productos 
+where categoria in(select idcategoria from categorias where nombre='mujeres')  ;
+
+
+
+APDATE!!!
+
+apdate tabla set
+campo= ' ',
+campo= ' ',
+campo= ' ',
+
+update productos set precio=2000,nombre='sj3 2018'
+where idproducto in (1)
+
+select * from productos
+
+
+DELETE!!!!
+
+delete from productos where idproducto = 2
+select * from productos
+
+LIKE!!!!!
+
+select nombre from productos where nombre like '2018%'  -- busca lo que tenga la parte 2018
+
+truncase veeer*/
