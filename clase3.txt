@@ -1,0 +1,352 @@
+
+-- DROP DATABASE IF EXISTS `EDUCIT`;
+-- 
+-- CREATE DATABASE IF NOT EXISTS `EDUCIT`;
+-- 
+-- USE `EDUCIT`;
+-- 
+-- /*Table structure for table `alumnos` */
+-- 
+-- DROP TABLE IF EXISTS `alumnos`;
+-- 
+-- CREATE TABLE `alumnos` (
+--   `CUIL` varchar(20) NOT NULL COMMENT 'CUIL',
+--   `NOMBRE` varchar(150) NOT NULL COMMENT 'NOMBRE DEL ALUMNO',
+--   `TELEFONO` varchar(50) DEFAULT NULL COMMENT 'TELEFONO DEL ALUMNO',
+--   PRIMARY KEY (`CUIL`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 
+-- /*Data for the table `alumnos` */
+-- 
+-- insert  into `alumnos`(`CUIL`,`NOMBRE`,`TELEFONO`) values 
+-- ('10000000','Andres Zarraga','50124401'),
+-- ('10000100','Antonio Grassi','50124402'),
+-- ('10000200','Beatriz Dora Ramirez','50124403'),
+-- ('10000400','Cristian Tocino','50124405'),
+-- ('10000500','David Jimenez','50124406'),
+-- ('10000600','Esteban Curcio','50124407'),
+-- ('10000700','Fernando Nicolas Santoianni','50124408'),
+-- ('10000800','Flavio Fernandez Ritsche',NULL),
+-- ('10000900','Geovanni Zapata','50124410'),
+-- ('10001000','Gonzalo Ezequiel Manestar','50124411'),
+-- ('10001100','Ignacio Mendia Mendia','50124412'),
+-- ('10001200','Iván Alberto Moroni','50124413'),
+-- ('10001300','Jonatan Marquez',NULL),
+-- ('10001400','José Alberto Algarbe',NULL),
+-- ('10001500','Juan Carlos Vilcherrez',NULL),
+-- ('10001600','Juan Manuel Cuevas','50124417'),
+-- ('10001700','Juan Manuel Schuller','50124418'),
+-- ('10001800','Karen Jhonge','50124419'),
+-- ('10001900','Lisseth Torres',NULL),
+-- ('10002000','Lucas Gigliotti','50124421'),
+-- ('10002100','Luciano Natanael Avati','50124422'),
+-- ('10002200','Luis Alvarez','50124423'),
+-- ('10002300','Manuel Fuente','50124424'),
+-- ('10002400','Marcelo Alejandro Moras Moreno',NULL),
+-- ('10002500','Martin Castro',NULL),
+-- ('10002600','Martin Leandro Franceschi',NULL),
+-- ('10002700','Nahuel Galarza','50124428'),
+-- ('10002800','NICOLAS FERREYRA','50124429'),
+-- ('10002900','Pablo Matías Landaida','50124430'),
+-- ('10003000','Patricia Castro','50124431'),
+-- ('10003100','Sebastian Santillan','50124432');
+-- 
+-- /*Table structure for table `cursos` */
+-- 
+-- DROP TABLE IF EXISTS `cursos`;
+-- 
+-- CREATE TABLE `cursos` (
+--   `ID_CURSO` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID DEL CURSO',
+--   `DESCRIPCION` varchar(100) NOT NULL COMMENT 'DESCRIPCION DEL CURSO',
+--   PRIMARY KEY (`ID_CURSO`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+-- 
+-- /*Data for the table `cursos` */
+-- 
+-- insert  into `cursos`(`ID_CURSO`,`DESCRIPCION`) values 
+-- (1,'INTRODUCCION SQL'),
+-- (2,'SCRUM'),
+-- (3,'JAVA');
+-- 
+-- /*Table structure for table `cursos_alumnos` */
+-- 
+-- DROP TABLE IF EXISTS `cursos_alumnos`;
+-- 
+-- CREATE TABLE `cursos_alumnos` (
+--   `ID_CURSO` int(10) unsigned NOT NULL COMMENT 'ID DEL CURSO',
+--   `CUIL_ALUMNO` varchar(20) NOT NULL COMMENT 'CUIL DEL ALUMNO',
+--   PRIMARY KEY (`ID_CURSO`,`CUIL_ALUMNO`),
+--   KEY `CUIL_ALUMNO` (`CUIL_ALUMNO`),
+--   CONSTRAINT `cursos_alumnos_ibfk_1` FOREIGN KEY (`ID_CURSO`) REFERENCES `cursos` (`ID_CURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+--   CONSTRAINT `cursos_alumnos_ibfk_2` FOREIGN KEY (`CUIL_ALUMNO`) REFERENCES `alumnos` (`CUIL`) ON DELETE NO ACTION ON UPDATE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 
+-- /*Data for the table `cursos_alumnos` */
+-- 
+-- insert  into `cursos_alumnos`(`ID_CURSO`,`CUIL_ALUMNO`) values 
+-- (1,'10000000'),
+-- (1,'10000100'),
+-- (1,'10000400'),
+-- (1,'10000500'),
+-- (1,'10000600'),
+-- (1,'10000700'),
+-- (1,'10000800'),
+-- (1,'10000900'),
+-- (1,'10001000'),
+-- (1,'10001100'),
+-- (1,'10001200'),
+-- (1,'10001300'),
+-- (1,'10001400'),
+-- (1,'10001500'),
+-- (1,'10001600'),
+-- (1,'10001700'),
+-- (1,'10001800'),
+-- (1,'10001900'),
+-- (1,'10002000'),
+-- (1,'10002100'),
+-- (1,'10002200'),
+-- (1,'10002300'),
+-- (1,'10002400'),
+-- (1,'10002500'),
+-- (1,'10002600'),
+-- (1,'10002700'),
+-- (1,'10002800'),
+-- (1,'10002900'),
+-- (1,'10003000'),
+-- (1,'10003100');
+-- 
+-- 
+-- /*Table structure for table `profesores` */
+-- 
+-- DROP TABLE IF EXISTS `profesores`;
+-- 
+-- CREATE TABLE `profesores` (
+--   `CUIL` varchar(20) NOT NULL COMMENT 'CUIL PROFESOR',
+--   `NOMBRE` varchar(150) NOT NULL COMMENT 'NOMBRE DEL PROFESOR',
+--   `TELEFONO` varchar(50) DEFAULT NULL COMMENT 'TELEFONO DEL PROFESOR',
+--   PRIMARY KEY (`CUIL`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 
+-- /*Data for the table `profesores` */
+-- 
+-- insert  into `profesores`(`CUIL`,`NOMBRE`,`TELEFONO`) values 
+-- ('95000000','Octavio Robleto','50124479'),
+-- ('95000001','Mariana Bracho','50124478');
+-- /*Table structure for table `cursos_profesores` */
+-- 
+-- DROP TABLE IF EXISTS `cursos_profesores`;
+-- 
+-- CREATE TABLE `cursos_profesores` (
+--   `ID_CURSO` int(10) unsigned NOT NULL COMMENT 'ID DEL CURSO',
+--   `CUIL` varchar(20) NOT NULL COMMENT 'CUIL DEL PROFESOR',
+--   PRIMARY KEY (`ID_CURSO`,`CUIL`),
+--   KEY `CUIL` (`CUIL`),
+--   CONSTRAINT `CURSO` FOREIGN KEY (`ID_CURSO`) REFERENCES `cursos` (`ID_CURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+--   CONSTRAINT `cursos_profesores_ibfk_1` FOREIGN KEY (`CUIL`) REFERENCES `profesores` (`CUIL`) ON DELETE NO ACTION ON UPDATE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 
+-- /*Data for the table `cursos_profesores` */
+-- 
+-- insert  into `cursos_profesores`(`ID_CURSO`,`CUIL`) values 
+-- (1,'95000000'),
+-- (2,'95000001'),
+-- (3,'95000000');
+-- 
+-- /*Table structure for table `notas` */
+-- 
+-- DROP TABLE IF EXISTS `notas`;
+-- 
+-- CREATE TABLE `notas` (
+--   `ID_NOTA` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID NOTAS',
+--   `ID_CURSO` int(10) unsigned NOT NULL COMMENT 'ID DEL CURSO',
+--   `ID_PROFESOR` varchar(20) NOT NULL COMMENT 'CUIL DE PROFESOR',
+--   `ID_ALUMNO` varchar(20) NOT NULL COMMENT 'CUIL DEL ALUMNO',
+--   `ANIO` int(10) NOT NULL COMMENT 'AÑO',
+--   `MES` int(2) NOT NULL COMMENT 'MES',
+--   `PARCIAL` int(2) NOT NULL COMMENT 'NUMERO DE PARCIAL',
+--   `NOTA` double DEFAULT NULL COMMENT 'NOTA',
+--   `FECHA` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'FECHA DE CARGA',
+--   PRIMARY KEY (`ID_NOTA`,`ID_CURSO`,`ID_PROFESOR`,`ID_ALUMNO`,`ANIO`,`MES`,`PARCIAL`),
+--   KEY `ID_CURSO` (`ID_CURSO`),
+--   KEY `ID_PROFESOR` (`ID_PROFESOR`),
+--   KEY `ID_ALUMNO` (`ID_ALUMNO`),
+--   CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`ID_CURSO`) REFERENCES `cursos` (`ID_CURSO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+--   CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`ID_PROFESOR`) REFERENCES `profesores` (`CUIL`) ON DELETE NO ACTION ON UPDATE CASCADE,
+--   CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`ID_ALUMNO`) REFERENCES `alumnos` (`CUIL`) ON DELETE NO ACTION ON UPDATE CASCADE
+-- ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+-- 
+-- /*Data for the table `notas` */
+-- 
+-- insert  into `notas`(`ID_NOTA`,`ID_CURSO`,`ID_PROFESOR`,`ID_ALUMNO`,`ANIO`,`MES`,`PARCIAL`,`NOTA`,`FECHA`) values 
+-- (1,1,'95000000','10000000',2018,1,1,100,'2018-09-28 21:43:52'),
+-- (2,1,'95000000','10000100',2018,1,1,85,'2018-09-28 21:45:21'),
+-- (3,1,'95000000','10000200',2018,1,1,90,'2018-09-28 21:45:21'),
+-- (4,1,'95000000','10000400',2018,1,1,65,'2018-09-28 21:45:21'),
+-- (5,1,'95000000','10000500',2018,1,1,98,'2018-09-28 21:45:21'),
+-- (6,1,'95000000','10000600',2018,1,1,35,'2018-09-28 21:45:21'),
+-- (7,1,'95000000','10000700',2018,1,1,69,'2018-09-28 21:45:21'),
+-- (8,1,'95000000','10000900',2018,1,1,85,'2018-09-28 21:45:21'),
+-- (9,1,'95000000','10001000',2018,1,1,78,'2018-09-28 21:45:21'),
+-- (10,1,'95000000','10001100',2018,1,1,45,'2018-09-28 21:45:21'),
+-- (11,1,'95000000','10001200',2018,1,1,85,'2018-09-28 21:45:21'),
+-- (12,1,'95000000','10001600',2018,1,1,95,'2018-09-28 21:45:21'),
+-- (13,1,'95000000','10001700',2018,1,1,25,'2018-09-28 21:45:21'),
+-- (14,1,'95000000','10001800',2018,1,1,14,'2018-09-28 21:45:21'),
+-- (15,1,'95000000','10002000',2018,1,1,85,'2018-09-28 21:45:21'),
+-- (16,1,'95000000','10002100',2018,1,1,26,'2018-09-28 21:45:22'),
+-- (17,1,'95000000','10002200',2018,1,1,69,'2018-09-28 21:45:22'),
+-- (18,1,'95000000','10002300',2018,1,1,85,'2018-09-28 21:45:22'),
+-- (19,1,'95000000','10002700',2018,1,1,75,'2018-09-28 21:45:22'),
+-- (20,1,'95000000','10002800',2018,1,1,85,'2018-09-28 21:45:22'),
+-- (21,1,'95000000','10002900',2018,1,1,86,'2018-09-28 21:45:22'),
+-- (22,1,'95000000','10003000',2018,1,1,84,'2018-09-28 21:45:22'),
+-- (23,1,'95000000','10003100',2018,1,1,85,'2018-09-28 21:45:22'),
+-- (25,1,'95000000','10000800',2018,1,1,86,'2018-09-28 21:45:22'),
+-- (26,1,'95000000','10001300',2018,1,1,86,'2018-09-28 21:45:22'),
+-- (27,1,'95000000','10001400',2018,1,1,86,'2018-09-28 21:45:22'),
+-- (28,1,'95000000','10001500',2018,1,1,84,'2018-09-28 21:45:22'),
+-- (29,1,'95000000','10001900',2018,1,1,87,'2018-09-28 21:45:22'),
+-- (30,1,'95000000','10002400',2018,1,1,88,'2018-09-28 21:45:22'),
+-- (31,1,'95000000','10002500',2018,1,1,99,'2018-09-28 21:45:22'),
+-- (32,1,'95000000','10002600',2018,1,1,77,'2018-09-28 21:45:22'),
+-- (33,1,'95000000','10000000',2018,2,2,98,'2018-09-28 21:47:22'),
+-- (34,1,'95000000','10000100',2018,2,2,83.3,'2018-09-28 21:47:22'),
+-- (35,1,'95000000','10000200',2018,2,2,88.2,'2018-09-28 21:47:22'),
+-- (36,1,'95000000','10000400',2018,2,2,63.7,'2018-09-28 21:47:22'),
+-- (37,1,'95000000','10000500',2018,2,2,96.04,'2018-09-28 21:47:22'),
+-- (38,1,'95000000','10000600',2018,2,2,34.3,'2018-09-28 21:47:22'),
+-- (39,1,'95000000','10000700',2018,2,2,67.62,'2018-09-28 21:47:22'),
+-- (40,1,'95000000','10000900',2018,2,2,83.3,'2018-09-28 21:47:22'),
+-- (41,1,'95000000','10001000',2018,2,2,76.44,'2018-09-28 21:47:22'),
+-- (42,1,'95000000','10001100',2018,2,2,44.1,'2018-09-28 21:47:22'),
+-- (43,1,'95000000','10001200',2018,2,2,83.3,'2018-09-28 21:47:22'),
+-- (44,1,'95000000','10001600',2018,2,2,93.1,'2018-09-28 21:47:22'),
+-- (45,1,'95000000','10001700',2018,2,2,24.5,'2018-09-28 21:47:23'),
+-- (46,1,'95000000','10001800',2018,2,2,13.72,'2018-09-28 21:47:23'),
+-- (47,1,'95000000','10002000',2018,2,2,83.3,'2018-09-28 21:47:23'),
+-- (48,1,'95000000','10002100',2018,2,2,25.48,'2018-09-28 21:47:23'),
+-- (49,1,'95000000','10002200',2018,2,2,67.62,'2018-09-28 21:47:23'),
+-- (50,1,'95000000','10002300',2018,2,2,83.3,'2018-09-28 21:47:23'),
+-- (51,1,'95000000','10002700',2018,2,2,73.5,'2018-09-28 21:47:23'),
+-- (52,1,'95000000','10002800',2018,2,2,83.3,'2018-09-28 21:47:23'),
+-- (53,1,'95000000','10002900',2018,2,2,84.28,'2018-09-28 21:47:23'),
+-- (54,1,'95000000','10003000',2018,2,2,82.32,'2018-09-28 21:47:23'),
+-- (55,1,'95000000','10003100',2018,2,2,83.3,'2018-09-28 21:47:23'),
+-- (57,1,'95000000','10000800',2018,2,2,84.28,'2018-09-28 21:47:23'),
+-- (58,1,'95000000','10001300',2018,2,2,84.28,'2018-09-28 21:47:23'),
+-- (59,1,'95000000','10001400',2018,2,2,84.28,'2018-09-28 21:47:23'),
+-- (60,1,'95000000','10001500',2018,2,2,82.32,'2018-09-28 21:47:23'),
+-- (61,1,'95000000','10001900',2018,2,2,85.26,'2018-09-28 21:47:24'),
+-- (62,1,'95000000','10002400',2018,2,2,86.24,'2018-09-28 21:47:24'),
+-- (63,1,'95000000','10002500',2018,2,2,97.02,'2018-09-28 21:47:24'),
+-- (64,1,'95000000','10002600',2018,2,2,75.46,'2018-09-28 21:47:24'),
+-- (65,1,'95000000','10000000',2018,4,3,80,'2018-09-28 21:48:49'),
+-- (66,1,'95000000','10000100',2018,4,3,85.3825,'2018-09-28 21:48:49'),
+-- (67,1,'95000000','10000200',2018,4,3,90.405,'2018-09-28 21:48:49'),
+-- (68,1,'95000000','10000400',2018,4,3,65.2925,'2018-09-28 21:48:49'),
+-- (69,1,'95000000','10000500',2018,4,3,98.441,'2018-09-28 21:48:49'),
+-- (70,1,'95000000','10000600',2018,4,3,35.1575,'2018-09-28 21:48:49'),
+-- (71,1,'95000000','10000700',2018,4,3,69.3105,'2018-09-28 21:48:49'),
+-- (72,1,'95000000','10000900',2018,4,3,85.3825,'2018-09-28 21:48:49'),
+-- (73,1,'95000000','10001000',2018,4,3,78.351,'2018-09-28 21:48:49'),
+-- (74,1,'95000000','10001100',2018,4,3,45.2025,'2018-09-28 21:48:49'),
+-- (75,1,'95000000','10001200',2018,4,3,85.3825,'2018-09-28 21:48:50'),
+-- (76,1,'95000000','10001600',2018,4,3,95.4275,'2018-09-28 21:48:50'),
+-- (77,1,'95000000','10001700',2018,4,3,25.1125,'2018-09-28 21:48:50'),
+-- (78,1,'95000000','10001800',2018,4,3,14.063,'2018-09-28 21:48:50'),
+-- (79,1,'95000000','10002000',2018,4,3,85.3825,'2018-09-28 21:48:50'),
+-- (80,1,'95000000','10002100',2018,4,3,26.117,'2018-09-28 21:48:50'),
+-- (81,1,'95000000','10002200',2018,4,3,69.3105,'2018-09-28 21:48:50'),
+-- (82,1,'95000000','10002300',2018,4,3,85.3825,'2018-09-28 21:48:50'),
+-- (83,1,'95000000','10002700',2018,4,3,75.3375,'2018-09-28 21:48:50'),
+-- (84,1,'95000000','10002800',2018,4,3,85.3825,'2018-09-28 21:48:50'),
+-- (85,1,'95000000','10002900',2018,4,3,86.387,'2018-09-28 21:48:50'),
+-- (86,1,'95000000','10003000',2018,4,3,84.378,'2018-09-28 21:48:50'),
+-- (87,1,'95000000','10003100',2018,4,3,85.3825,'2018-09-28 21:48:50'),
+-- (89,1,'95000000','10000800',2018,4,3,86.387,'2018-09-28 21:48:50'),
+-- (90,1,'95000000','10001300',2018,4,3,86.387,'2018-09-28 21:48:50'),
+-- (91,1,'95000000','10001400',2018,4,3,86.387,'2018-09-28 21:48:50'),
+-- (92,1,'95000000','10001500',2018,4,3,84.378,'2018-09-28 21:48:50'),
+-- (93,1,'95000000','10001900',2018,4,3,87.3915,'2018-09-28 21:48:50'),
+-- (94,1,'95000000','10002400',2018,4,3,88.396,'2018-09-28 21:48:51'),
+-- (95,1,'95000000','10002500',2018,4,3,99.4455,'2018-09-28 21:48:51'),
+-- (96,1,'95000000','10002600',2018,4,3,77.3465,'2018-09-28 21:48:51');
+-- 
+-- 
+-- 
+-- select * from educit.alumnos where alumnos.nombre not like '%karen%';
+-- 
+-- select * from educit.alumnos where alumnos.telefono is NULL
+-- 
+-- select * from educit.cursos
+-- 
+-- select * from educit.cursos_alumnos;
+-- 
+-- select alumnos.cuil,alumnos.nombre,(select id_curso from cursos_alumnos where cursos_alumnos.cuil_alumno=alumnos.cuil) from educit.alumnos;
+-- */
+-- /*
+-- select alumnos.cuil,alumnos.nombre,cursos_alumnos.id_cursos,cursos.descripcion from educit_alumnos 
+-- inner join curs_alumnos on cursos_alumnos.cuil_alumnos=alumnos.cuil
+-- inner join cursos on 
+-- select alumnos.cuil,alumnos.nombre,cursos_alumnos.id_cursos from educit.alumnos 
+-- left join curs_alumnos on cursos_alumnos,cuil_alumnos.cuil*/
+
+
+/*
+
+
+select id_curso,id_profesor,id_alumno,alumnos.nombre,anio,mes,
+
+case mes 
+when 1 then  'enero'
+when 2 then  'febrero'
+when 3 then  'marzo'
+when 4 then  'abril'
+else 'fuera de preriodo'
+end,
+parcial,nota, 
+if(nota>80='bieen'else 'no esta bien')
+from notas
+inner join alumnos on id_alumno=alumnos.cuil
+-- where parcial=1
+order by parcial asc,nota desc*/
+
+-- select parcial,AVG(nota),SUM(nota),COUNT(id_alumno) from notas
+-- group by parcial
+-- 
+-- select anio,mes,
+-- case mes 
+-- when 1 then  'enero'
+-- when 2 then  'febrero'
+-- when 3 then  'marzo'
+-- when 4 then  'abril'
+-- else 'fuera de preriodo'
+-- end as mes_palabra,
+-- AVG(nota) as promedio,SUM(nota),COUNT(id_alumno) 
+-- from notas
+-- 
+-- group by anio,mes
+-- having  (mes=2 or mes=1) and (promedio between 74 and 75)
+
+-- select cuil,nombre,avg(nota) as promedio,max(nota),min(nota),descripcion
+-- from
+-- alumnos
+-- left join notas on notas.id_alumno= alumnos.cuil
+-- inner join cursos on cursos.id_curso=notas.id_curso
+-- -- inner join profesores on profesores.CUIL= notas.id_profesor
+-- 
+-- group by id_alumno,notas.id_curso
+-- having promedio<65
+-- order by min(nota) 
+-- 
+
+update alumnos set 
+alumnos.telefono = '555555555'
+where alumnos.cuil 
+in (
+select notas.id_alumno
+from
+notas
+group by notas.id_alumno,notas.id_curso
+having avg(nota)<65
+);
